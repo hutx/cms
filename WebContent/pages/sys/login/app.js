@@ -32,6 +32,10 @@ Ext.application({
 
     launch: function() {
         Ext.create('Login.view.login_panel');
+        if(message!=""){
+        	 Ext.Msg.alert('提示信息', message);
+        	 message="";
+        }
     }
 
 });

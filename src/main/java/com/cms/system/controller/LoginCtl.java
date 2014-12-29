@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cms.system.service.LoginSrv;
+import com.cms.system.util.JsonResult;
 import com.cms.system.util.MD5;
 
 @Controller
@@ -33,15 +35,34 @@ public class LoginCtl {
 	@RequestMapping(value = "/login")
 	public String processLogin(String username, String password, Model model,
 			RedirectAttributes redirectAttrs) throws Exception {
+		
 		/*
 		 * if (result.hasErrors()) { return null; }
 		 */
 		Map<String, Object> map = loginSrv.findOper(new Object[] { username,
 				MD5.getMD5(password) });
 		if (map==null) {
-			redirectAttrs.addAttribute("message", "您输入的有误请重新输入！");
-			return "login";
+			model.addAttribute("message","您输入的有误请重新输入");
+			return "login/index";
 		}
-		return "form";
+		return "main";
 	}
+	
+	/*@RequestMapping(value = "/login")
+	public @ResponseBody JsonResult processLogin(String username, String password, Model model,
+			RedirectAttributes redirectAttrs) throws Exception {
+		JsonResult result = new JsonResult();
+		
+		
+		 * if (result.hasErrors()) { return null; }
+		 
+		Map<String, Object> map = loginSrv.findOper(new Object[] { username,
+				MD5.getMD5(password) });
+		if (map==null) {
+			result.setResult(1);
+			result.setMessage("您输入的有误请重新输入！");
+			return result;
+		}
+		return result;
+	}*/
 }

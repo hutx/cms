@@ -17,29 +17,21 @@ Ext.define('Login.view.login_panelViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.login_panel',
     onLoginButtonClick: function(button, e, eOpts) {
-        var view = this.getView(),
-            form = button.up('form'),
-            values = form.getValues();
-
-        // Success
-        var successCallback = function(resp, ops) {
-            debugger; 
-            Ext.Msg.alert('Login success', resp);
-        };
-        // Failure
-        var failureCallback = function(resp, ops) {
-
-            // Show login failure error
-            Ext.Msg.alert('Login Failure', resp);
-
-        };
-         Ext.Ajax.request({
-        		url: "/loginCtl/login",
+        //var view = this.getView(),
+           var form = button.up('form');
+            //values = form.getValues();
+ 
+        form.submit({
+        	url: "/loginCtl/login",    
+		    method :'POST'
+        })
+        /* Ext.Ajax.request({
+        		url: "/loginCtl/login",        		
         		params: values,
         		success: successCallback,
         		failure: failureCallback
-         });
-
+         });*/
+		
         // Just run success for now
     }
 });

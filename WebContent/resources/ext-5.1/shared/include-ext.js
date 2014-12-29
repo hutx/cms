@@ -48,7 +48,7 @@
     var scriptEls = document.getElementsByTagName('script'),
         path = scriptEls[scriptEls.length - 1].src,
         rtl = getQueryParam('rtl'),
-        theme = getQueryParam('theme') || 'crisp',
+        theme = getQueryParam('theme') || 'neptune',
         includeCSS = !hasOption('nocss', path),
         useDebug = hasOption('debug'),
         hasOverrides = !hasOption('nooverrides', path) && !!{
