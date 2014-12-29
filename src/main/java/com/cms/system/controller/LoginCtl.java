@@ -4,17 +4,15 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cms.system.service.LoginSrv;
 import com.cms.system.util.MD5;
 
-@RestController
+@Controller
 @RequestMapping("/loginCtl")
 // @SessionAttributes("formBean")
 public class LoginCtl {
@@ -29,7 +27,7 @@ public class LoginCtl {
 
 	@RequestMapping(value = "/index")
 	public String login() {
-		return "login";
+		return "login/index";
 	}
 
 	@RequestMapping(value = "/login")

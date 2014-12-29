@@ -20,13 +20,11 @@ Ext.Loader.setConfig({
 
 
 Ext.application({
-
+	
+	appFolder: '/pages/sys/login/app',
     requires: [
         'Ext.window.MessageBox'
-    ],
-    models: [
-        'Car'
-    ],
+    ],   
     views: [
         'login_panel'
     ],
