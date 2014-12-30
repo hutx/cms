@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cms.system.service.LoginSrv;
 import com.cms.system.util.JsonResult;
 import com.cms.system.util.MD5;
+import com.cms.system.util.SqlUtil;
 
 @Controller
 @RequestMapping("/loginCtl")
@@ -44,6 +45,15 @@ public class LoginCtl {
 		if (map==null) {
 			model.addAttribute("message","您输入的有误请重新输入");
 			return "login/index";
+		}
+		//判断是否管理员
+		if(SqlUtil.getInt(map, "administrator")>0){
+			//取出所有菜单
+			
+		}else{
+		//判断权限
+		//根据权限取当前用户对应的菜单
+			
 		}
 		return "main";
 	}

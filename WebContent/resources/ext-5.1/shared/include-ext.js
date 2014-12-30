@@ -93,7 +93,7 @@
     
     document.write('<script type="text/javascript" src="' + path + extPrefix +
                             (rtl ? '-rtl' : '') + '.js"></script>');
-
+   
     if (hasOverrides) {
         // since document.write('<script>') does not block execution in IE, we need to 
         // makes sure we prevent ext-theme-neptune.js from executing before ext-all.js
@@ -116,5 +116,8 @@
                             overridePath + '" defer></script>');
         }
     }
+    
+    //加入语言包
+    document.write('<script type="text/javascript" src="' + path +'/packages/ext-locale/build/ext-locale-zh_CN.js"></script>');
 
 })();

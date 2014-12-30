@@ -25,10 +25,10 @@ public class SqlUtil {
             page = 1;
         if (pagesize <= 0)
             pagesize = 0;
-        int beginrow = (page - 1) * pagesize + 1;
+        int beginrow = (page - 1) * pagesize ;
         int endrow = beginrow + pagesize;        
         //sql = "SELECT * FROM (SELECT a.*, ROWNUM rn FROM ( "+sql + ") a WHERE ROWNUM < "+endrow+" ) WHERE rn >= "+beginrow;
-        sql = "SELECT * FROM ( "+sql + ") a  limit  "+endrow+" , "+beginrow;
+        sql = "SELECT * FROM ( "+sql + ") a  limit  "+beginrow+" , "+endrow;
         return sql;
     }
     
