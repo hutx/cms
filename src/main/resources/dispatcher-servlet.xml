@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd ">
+
+
+    <!-- Spring MVC配置 -->
+    <context:annotation-config />
+    <!--扫描注解 -->
+    <context:component-scan base-package="com.cms" />
+    <!--默认的mvc注解映射的支持 -->
+    <mvc:annotation-driven/>
+    <!-- 支持异步方法执行 -->
+    <task:annotation-driven /> 
+    
+    <!-- 对静态资源文件的访问 -->
+    <mvc:resources mapping="/resources/**" location="/resources/"  />
+    <mvc:resources mapping="/pages/**" location="/pages/"  />
+    <mvc:resources mapping="/pages*" location="/"  />
+    
+    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+    <!-- 视图解析器和json解析器 
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                	可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 
+                    <property name="prefix" value="/WEB-INF/views/" /> 
+                    <property name="suffix" value=".jsp"/>
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+            </list>
+        </property>
+    </bean>
+    -->
+    <!-- 文件上传解析器 -->
+    <beans:bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <beans:property name="maxUploadSize" value="-1"/>
+    </beans:bean>
+
+    <!-- 总错误处理 -->
+    <beans:bean id="exceptionResolver"
+        class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <beans:property name="defaultErrorView" value="/error">
+        </beans:property>
+        <beans:property name="defaultStatusCode" value="500">
+        </beans:property>
+        <beans:property name="warnLogCategory" value="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        </beans:property>
+    </beans:bean>
+	<mvc:view-controller path="/" view-name="redirect:/loginCtl/index"/>
+	
+     <beans:bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	     <beans:property name="interceptors">
+	     	<beans:list>
+	     		<beans:bean class="com.cms.system.AuthorityInterceptor"></beans:bean>
+	     	</beans:list>
+	     </beans:property>
+	 </beans:bean>
+    
+</beans:beans>

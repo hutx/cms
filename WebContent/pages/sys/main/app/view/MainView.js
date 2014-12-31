@@ -23,7 +23,8 @@ Ext.define('MyApp.view.MainView', {
         'Ext.menu.Menu',
         'Ext.menu.Item',
         'Ext.tab.Panel',
-        'Ext.tab.Tab'
+        'Ext.tab.Tab',
+        'Ext.tree.Panel'
     ],
 
     viewModel: {
