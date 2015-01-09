@@ -9,8 +9,8 @@
 (function() {
     function getQueryParam(name) {
         var regex = RegExp('[?&]' + name + '=([^&]*)');
-
-        var match = regex.exec(location.search) || regex.exec(path);
+        var url=parent? parent.location.search:location.search;
+        var match = regex.exec(url) || regex.exec(path);
         return match && decodeURIComponent(match[1]);
     }
 

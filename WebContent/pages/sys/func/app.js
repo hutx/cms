@@ -20,15 +20,20 @@ Ext.Loader.setConfig({
 
 
 Ext.application({
-	appFolder: '/pages/sys/main/app',
-    views: [
-        'MainView'
+	appFolder: '/pages/sys/func/app',
+    stores: [
+        'MenuStore'
     ],
-    name: 'MyApp',
+    views: [
+        'FuncViewport'
+    ],
+    controllers: [
+        'FuncController'
+    ],
+    name: 'Func',
 
     launch: function() {
-        Ext.create('MyApp.view.MainView');
-        showTree();
+        Ext.create('Func.view.FuncViewport');
     }
 
 });

@@ -53,38 +53,7 @@ Ext.define('MyApp.view.MainView', {
             bodyBorder: false,
             collapseDirection: 'left',
             collapsible: true,
-            title: '',
-            items: [
-                {
-                    xtype: 'treepanel',
-                    title: 'My Panel',
-                    items: [
-                        {
-                            xtype: 'menu',
-                            floating: false,
-                            width: 'auto',
-                            items: [
-                                {
-                                    xtype: 'menuitem',
-                                    text: 'Menu Item'
-                                },
-                                {
-                                    xtype: 'menuitem',
-                                    text: 'Menu Item'
-                                },
-                                {
-                                    xtype: 'menuitem',
-                                    text: 'Menu Item'
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    xtype: 'panel',
-                    title: 'My Panel'
-                }
-            ]
+            title: ''            
         },
         {
             xtype: 'tabpanel',
@@ -106,13 +75,6 @@ Ext.define('MyApp.view.MainView', {
                     ]
                 }
             ]
-        },
-        {
-            xtype: 'panel',
-            region: 'south',
-            split: true,
-            height: 30,
-            itemId: 'southPanel'
         }
     ]
 

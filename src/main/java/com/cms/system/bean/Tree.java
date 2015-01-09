@@ -20,6 +20,8 @@ public class Tree implements Serializable {
 	private boolean expanded;
 	private boolean leaf;
 	private String url;
+	private int isUsable;
+	private String desc;
 	private List<Tree> children;
 
 	public String getId() {
@@ -69,10 +71,25 @@ public class Tree implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	public int getIsUsable() {
+		return isUsable;
+	}
 
+	public void setIsUsable(int isUsable) {
+		this.isUsable = isUsable;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	
 	public List<Tree> getChildren() {
 		return children;
-	}
+	}	
 
 	public void setChildren(List<Tree> children) {
 		this.children = children;

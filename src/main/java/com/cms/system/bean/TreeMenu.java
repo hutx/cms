@@ -27,6 +27,8 @@ public class TreeMenu {
 		Tree tree = new Tree();
 		tree.setId(SqlUtil.getString(node, "id"));
 		tree.setText(SqlUtil.getString(node, "name"));
+		tree.setIsUsable(SqlUtil.getInt(node, "fornavigation"));
+		tree.setDesc(SqlUtil.getString(node, "desc_"));
 		tree.setChildren(new ArrayList<Tree>());
 		if (list == null) {
 			// 防止没有权限菜单时
@@ -38,7 +40,7 @@ public class TreeMenu {
 			
 			//tree.setExpanded(node.getExpanded() == 1 ? true : false);
 			List<Map<String, Object>> childList = getChildList(list, node);
-			tree.setLeaf(childList.size() > 0 ? true : false);
+			tree.setLeaf(childList.size() > 0 ?  false: true);
 			Iterator<Map<String, Object>> it = childList.iterator();
 			while (it.hasNext()) {
 				Map<String, Object> modules = (Map<String, Object>) it.next();
@@ -54,7 +56,7 @@ public class TreeMenu {
 			// tree.setExpanded(node.getExpanded() == 1 ? true : false);
 		} else {
 			tree.setUrl(SqlUtil.getString(node, "url"));
-			tree.setLeaf( false);
+			tree.setLeaf( true);
 			//tree.setExpanded(node.getExpanded() == 1 ? true : false);
 		}
 

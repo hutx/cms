@@ -13,12 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cms.system.bean.Tree;
 import com.cms.system.bean.TreeMenu;
 import com.cms.system.service.FuncSrv;
 import com.cms.system.service.LoginSrv;
+import com.cms.system.util.JsonResult;
 import com.cms.system.util.SqlUtil;
 import com.cms.system.util.UserContext;
 
@@ -44,17 +47,18 @@ public class LoginCtl {
 	}
 
 	@RequestMapping(value = "/login")
-	public String processLogin(String username, String password, Model model,
+	public @ResponseBody JsonResult processLogin(String username, String password, Model model,
 			RedirectAttributes redirectAttrs ,HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		JsonResult result = new JsonResult();
 		/*
 		 * if (result.hasErrors()) { return null; }
 		 */
 		Map<String, Object> map = loginSrv.findOper(new Object[] { username,
 				DigestUtils.md5DigestAsHex(password.getBytes()) });
 		if (map==null) {
-			model.addAttribute("message","您输入的有误请重新输入");
-			return "login/index";
+			//model.addAttribute("message","您输入的有误请重新输入");
+			result.setResult(1);
+			result.setMessage("您输入的有误请重新输入！");
 		}
 		UserContext userContext = new UserContext();
 		//判断是否管理员
@@ -73,9 +77,13 @@ public class LoginCtl {
 		userContext.setAttribute("map", map);
 		HttpSession session = request.getSession(true);
 		session.setAttribute("userContext", userContext);
+		return result;
+	}
+	@RequestMapping(value="/loginSuccess", method = RequestMethod.GET)
+	public String loginSuccess(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		return "main";
 	}
-	
 	
 	/*@RequestMapping(value = "/login")
 	public @ResponseBody JsonResult processLogin(String username, String password, Model model,

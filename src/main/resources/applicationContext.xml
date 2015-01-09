@@ -19,15 +19,6 @@
     http://www.springframework.org/schema/task
     http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
-    <!-- Spring MVC配置 -->
-    <context:annotation-config />
-    <!--扫描注解 -->
-    <context:component-scan base-package="com.cms" />
-    <!--默认的mvc注解映射的支持 -->
-    <mvc:annotation-driven/>
-    <!-- 支持异步方法执行 -->
-    <task:annotation-driven /> 
-
     <!-- 数据库和事务配置 -->
 
     <!-- 加载配置文件 -->

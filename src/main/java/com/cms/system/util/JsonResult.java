@@ -20,6 +20,8 @@ public class JsonResult implements Serializable{
 	private int result = 0;//处理成功返回0，其他错误
 	private int action;//下一步处理类型0 停留在当前页面 1 跳转到指定页面
 	private String message;//如果message不为空，则页面弹出消息框
+	private boolean success =true;
+
 	/**
 	 * 如果message不为空，弹出消息框的类型 
 	 * alert:直接调用
@@ -92,7 +94,13 @@ public class JsonResult implements Serializable{
 		this.url = url;
 		this.action = 1;
 	}
-	
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 	
 	
 	

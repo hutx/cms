@@ -23,8 +23,15 @@ Ext.define('Login.view.login_panelViewController', {
  
         form.submit({
         	url: "/loginCtl/login",    
-		    method :'POST'
-        })
+		    method :'POST',
+		    success:function(form ,action){
+		    	//Ext.Msg.alert('Success', action.result.msg);
+		    	window.location.href="/loginCtl/loginSuccess";
+		    },
+		    failure: function(form, action) {
+		    	Ext.Msg.alert('Failure', action.result.msg);
+		    }
+        });
         /* Ext.Ajax.request({
         		url: "/loginCtl/login",        		
         		params: values,

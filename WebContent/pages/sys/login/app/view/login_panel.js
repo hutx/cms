@@ -40,7 +40,7 @@ Ext.define('Login.view.login_panel', {
             xtype: 'form',
             frame: true,
             width: 400,
-            standardSubmit:true,
+            //standardSubmit:true,
             bodyPadding: 20,
             title: '登录',           
             items: [
