@@ -29,6 +29,7 @@ public class TreeMenu {
 		tree.setText(SqlUtil.getString(node, "name"));
 		tree.setIsUsable(SqlUtil.getInt(node, "fornavigation"));
 		tree.setDesc(SqlUtil.getString(node, "desc_"));
+		tree.setOrder(SqlUtil.getInt(node, "order_"));
 		tree.setChildren(new ArrayList<Tree>());
 		if (list == null) {
 			// 防止没有权限菜单时

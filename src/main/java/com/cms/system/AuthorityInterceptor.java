@@ -17,6 +17,7 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter  {
 	Map<String, Integer> whiteList = new HashMap<String, Integer>();
 
 	public AuthorityInterceptor() {
+		whiteList.put("/loginCtl/index", 1);
 		whiteList.put("/loginCtl/login", 1);
 	}
 
@@ -26,11 +27,18 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter  {
 		UserContext UserContext = (UserContext) WebUtils.getSessionAttribute(request, "userContext");
 
 		String url = request.getServletPath();
-		if (UserContext == null&&whiteList.get(url) == null) {
-			response.sendRedirect("/loginCtl/login") ;
+		if (UserContext == null && whiteList.get(url) == null && chekFile(url)) {
+			response.sendRedirect("/loginCtl/index") ;
 			return false;
 		} 
 
+		return true;
+	}
+	
+	public boolean chekFile(String url) {
+		if(url.endsWith(".css") || url.endsWith(".js")){
+			return false;
+		}
 		return true;
 	}
 

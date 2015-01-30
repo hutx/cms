@@ -1,5 +1,8 @@
 package com.cms.system.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -147,5 +150,25 @@ public class BaseService {
 	public  <T> String updateExecute(String callString,CallableStatementCallback<T>  action){
 		String message= (String) jdbcTemplate.execute(callString, action);
 		return message;
+	}
+	
+	public Map<String, Object> getTable(Map<String, Object> map,String operType) throws BusiException {
+		Map<String, Object> table= new HashMap<String, Object>();
+		List<String> col =new ArrayList<String>();
+		List<Object> parame =new ArrayList<Object>(); 
+		Iterator iterator =map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry entry = (Map.Entry)iterator.next();          
+		    String column=entry.getKey().toString(); 
+		    if ("update".endsWith(operType)) {
+		    	col.add("set "+column.toLowerCase()+" = ?");
+			}else{
+				col.add(column.toLowerCase()+" = ?");
+			}
+			parame.add(entry.getValue());
+		}
+		table.put("column", col);
+		table.put("parame", parame);
+		return table;
 	}
 }

@@ -51,6 +51,11 @@ public class JsonResult implements Serializable{
 	}
 
 	public void setResult(int result) {
+		if (result ==0) {
+			this.success=true;
+		}else {
+			this.success=false;
+		}
 		this.result = result;
 	}
 

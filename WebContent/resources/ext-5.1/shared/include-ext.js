@@ -119,5 +119,5 @@
     
     //加入语言包
     document.write('<script type="text/javascript" src="' + path +'/packages/ext-locale/build/ext-locale-zh_CN.js"></script>');
-
+	document.write('<script type="text/javascript" src="' + path +'/util.js"></script>');
 })();

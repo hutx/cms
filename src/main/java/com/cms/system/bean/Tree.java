@@ -22,6 +22,7 @@ public class Tree implements Serializable {
 	private String url;
 	private int isUsable;
 	private String desc;
+	private int order;
 	private List<Tree> children;
 
 	public String getId() {
@@ -97,6 +98,14 @@ public class Tree implements Serializable {
 	
 	public String toJSONString() {		
 		return JSONArray.toJSONString(this.getChildren());
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 }

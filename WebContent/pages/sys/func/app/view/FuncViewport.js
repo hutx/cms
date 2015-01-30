@@ -59,18 +59,21 @@ Ext.define('Func.view.FuncViewport', {
                         items: [
                             {
                                 xtype: 'menuitem',
-                                text: '添加根节点'
+                                text: '添加根节点',
+                                id:'menuAddRootNode'
                             },
                             {
                                 xtype: 'menuitem',
-                                text: '添加子节点'
+                                text: '添加子节点',
+                                id:'menuAddSubNode',
                             }
                         ]
                     }
                 },
                 {
                     xtype: 'button',
-                    text: '删除'
+                    text: '删除',
+                    id:'menuDelNode'
                 }]
 	         }]
             
@@ -113,19 +116,20 @@ Ext.define('Func.view.FuncViewport', {
                         xtype: 'textfield',
                         id: 'tx_name',
                         fieldLabel: '菜单名称',
-                        name: 'funcName'
+                        allowBlank: false,
+                        name: 'name'
                     },
                     {
                         xtype: 'textfield',
                         id: 'tx_url',
-                        fieldLabel: 'URL',
-                        name: 'funcURL'
+                        fieldLabel: 'URL',                        
+                        name: 'url'
                     },
                     {
                         xtype: 'textfield',
                         id: 'tx_icon',
                         fieldLabel: '图标',
-                        name: 'func_icon'
+                        name: 'icon'
                     },
                     {
                         xtype: 'radiogroup',
@@ -156,19 +160,31 @@ Ext.define('Func.view.FuncViewport', {
                         xtype: 'textareafield',
                         id: 'tx_desc',
                         fieldLabel: '描述信息',
-                        name: 'func_desc'
+                        name: 'desc_'
                     },
                     {
                         xtype: 'hiddenfield',
                         id: 'tx_parentid',
                         fieldLabel: '父菜单id',
-                        name: 'func_parentid',
+                        name: 'parentid',
                     },
                     {
                         xtype: 'hiddenfield',
                         id: 'tx_id',
                         fieldLabel: '菜单id',
-                        name: 'func_id',
+                        name: 'id',
+                    },
+                    {
+                        xtype: 'hiddenfield',
+                        id: 'operation',
+                        fieldLabel: '操作',
+                        name: 'operation',
+                    },
+                    {
+                        xtype: 'hiddenfield',
+                        id: 'order',
+                        fieldLabel: '顺序',
+                        name: 'order_',
                     },
                     {
                         xtype: 'container',
@@ -182,7 +198,9 @@ Ext.define('Func.view.FuncViewport', {
                         items: [
                             {
                                 xtype: 'button',
-                                text: '保存'
+                                formBind: true,
+                                text: '保存',
+                                id:'btnSave'
                             },
                             {
                                 xtype: 'segmentedbutton',
@@ -190,7 +208,8 @@ Ext.define('Func.view.FuncViewport', {
                             },
                             {
                                 xtype: 'button',
-                                text: '重置'
+                                text: '重置',
+                                id:'btnRest'
                             }
                         ]
                     }

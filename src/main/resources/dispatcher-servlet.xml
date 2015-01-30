@@ -86,14 +86,15 @@
         <beans:property name="warnLogCategory" value="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         </beans:property>
     </beans:bean>
+    
 	<mvc:view-controller path="/" view-name="redirect:/loginCtl/index"/>
 	
-     <beans:bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-	     <beans:property name="interceptors">
-	     	<beans:list>
-	     		<beans:bean class="com.cms.system.AuthorityInterceptor"></beans:bean>
-	     	</beans:list>
-	     </beans:property>
-	 </beans:bean>
-    
+	  <!-- 自定义拦截链配置  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/> 
+            <beans:bean class="com.cms.system.AuthorityInterceptor"></beans:bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+   
 </beans:beans>

@@ -27,10 +27,30 @@ Ext.define('Func.controller.FuncController', {
             },
             '#addRootMenu':{
             	click:'addRootMenuFn'
+            },
+            '#addSubMenu':{
+            	click:'addSubMenuFn'
+            },
+            '#delNode':{
+            	click:'delNodeFn'
+            },
+            '#menuDelNode':{
+            	click:'delNodeFn'
+            },
+            '#menuAddRootNode':{
+            	click:'addRootMenuFn'
+            },
+            '#menuAddSubNode':{
+            	click:'addSubMenuFn'
+            },
+            '#btnSave':{
+            	click:'btnSaveFn'
+            },
+            '#btnRest':{
+            	click:'btnRestFn'
             }
         });
     },
-
     showRightMenu: function(view,record,item,index,event) {
         event.preventDefault();
         var menu = Ext.getCmp('tree_menu');
@@ -43,14 +63,95 @@ Ext.define('Func.controller.FuncController', {
     	Ext.getCmp('tx_id').setValue(record.getId());
     	Ext.getCmp('tx_name').setValue(record.data.text);
     	Ext.getCmp('tx_url').setValue(record.data.url);
-    	
+    	Ext.getCmp('order').setValue(record.data.order);
+    	Ext.getCmp('operation').setValue('update');    	
     },
     addRootMenuFn:function(t,item,e){//添加根节点
     	var menu_panel = Ext.getCmp('menu_panel');    	
     	var record = menu_panel.getSelectionModel().selected.items[0];//取得节点对像
+    	if(record =="undefined"){
+    		Ext.Msg.alert("提示信息","请先选择菜单！");
+    	}
     	var parentId = record.parentNode.getId();
+    	
     	Ext.getCmp('func_form').reset();
     	Ext.getCmp('tx_parentid').setValue(parentId);
+    	Ext.getCmp('operation').setValue('addRoot');
+    	var order =record.parentNode.parentNode.lastChild.data.order;
+    	Ext.getCmp('order').setValue(order+1);
+    	Ext.getCmp('tree_menu').hide();
+    },
+    addSubMenuFn:function(t,item,e){//添加子节点
+    	var menu_panel = Ext.getCmp('menu_panel');    	
+    	var record = menu_panel.getSelectionModel().selected.items[0];//取得节点对像
+    	if(record =="undefined"){
+    		Ext.Msg.alert("提示信息","请先选择菜单！");
+    	}
+    	var node = record.getId();
+    	Ext.getCmp('func_form').reset();
+    	Ext.getCmp('tx_parentid').setValue(node);
+    	Ext.getCmp('operation').setValue('addSub');
+    	var order = record.parentNode.lastChild.data.order;
+    	Ext.getCmp('order').setValue(order+1);
+    	Ext.getCmp('tree_menu').hide();
+    },
+    delNodeFn:function(t,item,e){
+    	var menu_panel = Ext.getCmp('menu_panel');    	
+    	var record = menu_panel.getSelectionModel().selected.items[0];//取得节点对像
+    	if(record =="undefined"){
+    		Ext.Msg.alert("提示信息","请选择您要删除的菜单！");
+    	}
+    	var msg ="您确定要删除此节点吗？";
+    	if(!record.data.leaf){//判断是否子节点
+    		msg ="您确定要删除 此节点及子节点吗？";
+    	}
+    	Ext.Msg.confirm('提示信息',msg,function(btn){
+    		if(btn=="yes"){
+    			//删除节点
+    			Ext.Ajax.request({
+            		url: "/funcCtl/del",        		
+            		params: {id:record.getId()},
+            		success : function(response) {
+            			//Ext.Viewport.setMasked(false);
+            			var obj = Ext.decode(response.responseText);
+            			Ext.Msg.alert("提示信息",obj.message);
+            			Ext.getCmp('menu_panel').getStore().remove(record);           			
+            		},
+            		failure: function(response, opts) {
+            			//Ext.Viewport.setMasked(false);
+            			Ext.Msg.alert("提示信息", "通讯异常，请重试");
+            		}
+             });
+    		}
+    	});
+    },
+    btnSaveFn:function(t,e){//表单提交
+    	//Ext.getCmp('func_form').getForm();
+    	var form = t.up('form');
+    	var url ="/funcCtl/add";
+    	var operation = Ext.getCmp('operation').getValue();
+    	if(operation =="update"){
+    		url ="/funcCtl/update";
+    	}
+    	form.submit({
+        	url: url,    
+		    method :'POST',
+		    dataType: 'json', 
+		    success:function(form ,action){
+		    	//Ext.Msg.alert('Success', action.result.msg);
+		    	var obj = Ext.decode(action.response.responseText);
+		    	Ext.Msg.alert('提示信息',obj.message);
+		    	//var uuid =obj.uuid;
+		    	//添加成功 把当前节点插入菜单树中
+		    	Ext.getCmp('menu_panel').getStore().load();
+		    },
+		    failure: function(form, action) {
+		    	var obj = Ext.decode(action.response.responseText);
+		    	Ext.Msg.alert('Failure', obj.message);
+		    }
+        });
+    },
+    btnRestFn:function(t,e){//表单重置
+    	Ext.getCmp("func_form").reset();
     }
-
 });

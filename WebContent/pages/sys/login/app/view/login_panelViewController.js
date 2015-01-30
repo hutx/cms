@@ -29,7 +29,8 @@ Ext.define('Login.view.login_panelViewController', {
 		    	window.location.href="/loginCtl/loginSuccess";
 		    },
 		    failure: function(form, action) {
-		    	Ext.Msg.alert('Failure', action.result.msg);
+		    	var obj = Ext.decode(action.response.responseText);
+		    	Ext.Msg.alert('Failure', obj.message);
 		    }
         });
         /* Ext.Ajax.request({
