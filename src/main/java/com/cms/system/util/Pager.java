@@ -12,7 +12,7 @@ import java.util.Map;
 public class Pager {
 	private int totalRows; // 总行数  
 
-	private int pageSize = 30; // 每页显示的行数  
+	private int pageSize = 25; // 每页显示的行数  
 
 	private int currentPage = 1; // 当前页号  
 
@@ -29,14 +29,16 @@ public class Pager {
 	/**
 	 * 要输出的页面元素
 	 */
-	private List<Map<String, Object>> pageElements = new ArrayList<Map<String, Object>>();
+	private List<Map<String, Object>> dataRoot = new ArrayList<Map<String, Object>>();
 
-	public List<Map<String, Object>> getPageElements() {
-		return pageElements;
+	
+
+	public List<Map<String, Object>> getDataRoot() {
+		return dataRoot;
 	}
 
-	public void setPageElements(List<Map<String, Object>> pageElements) {
-		this.pageElements = pageElements;
+	public void setDataRoot(List<Map<String, Object>> dataRoot) {
+		this.dataRoot = dataRoot;
 	}
 
 	public Pager() {

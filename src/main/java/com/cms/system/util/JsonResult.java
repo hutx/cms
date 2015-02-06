@@ -1,7 +1,9 @@
 package com.cms.system.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +34,10 @@ public class JsonResult implements Serializable{
 	
 	private String url;
 	
+	private List<Map<String,Object>> root =new ArrayList<Map<String,Object>>();
+	
+	
+
 	private Map<String,Object> data = new HashMap<String,Object>();
 	
 	public void set(String key,Object value){
@@ -41,9 +47,14 @@ public class JsonResult implements Serializable{
 	public Map<String, Object> getData() {
 		return data;
 	}
+	
+	public List<Map<String, Object>> getRoot() {
+		return root;
+	}
 
-	
-	
+	public void setRoot(List<Map<String, Object>> root) {
+		this.root = root;
+	}	
 	
 
 	public int getResult() {

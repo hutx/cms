@@ -5,9 +5,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible"">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>菜单管理</title>
+    <title>操作员管理</title>
     <script type="text/javascript" src="/resources/ext-5.1/shared/include-ext.js" ></script>
-    <script type="text/javascript" src="/pages/sys/func/app.js"></script>
+    <script type="text/javascript" src="/pages/sys/oper/app.js"></script>
     
 </head>
 <body>

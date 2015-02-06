@@ -1,4 +1,5 @@
-package com.cms.system.bean;
+package com.cms.system.form;
+
 
 public class LoginBean {
 	

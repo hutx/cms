@@ -19,34 +19,136 @@ Ext.define('Oper.view.OperContainer', {
 
     requires: [
         'Oper.view.OperContainerViewModel',
+        'Ext.form.Panel',
+        'Ext.form.field.Text',
+        'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.column.Date',
         'Ext.grid.column.Boolean',
         'Ext.grid.View',
-        'Ext.toolbar.Paging',
-        'Ext.button.Button'
+        'Ext.toolbar.Paging'
     ],
 
     viewModel: {
         type: 'opercontainer'
     },
-    layout: 'fit',
 
+    layout: {
+        type: 'vbox',
+        align: 'stretch'
+    },
     items: [
         {
+            xtype: 'form',
+            height: 50,
+            id: 'OperQueryForm',
+            bodyPadding: 10,
+            layout: {
+                type: 'hbox',
+                align: 'stretch'
+            },
+            items: [
+                {
+                    xtype: 'textfield',
+                    fieldLabel: '用户名称',
+                    labelWidth: 80,
+                    name: 'q_name'
+                },
+                {
+                    xtype: 'container',
+                    flex: 1,
+                    margin: '0 0 0 20',
+                    padding: 3,
+                    layout: 'anchor',
+                    items: [
+                        {
+                            xtype: 'button',
+                            text: '查询'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             xtype: 'gridpanel',
+            flex: 1,
             autoScroll: true,
             suspendLayout: true,
             bodyBorder: false,
-            title: 'Oper Grid Panel',
             forceFit: true,
             store: 'OperJsonStore',
             columns: [
                 {
                     xtype: 'gridcolumn',
-                    dataIndex: 'string',
-                    text: 'String'
+                    dataIndex: 'username',
+                    text: '用户名称'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'cname',
+                    text: '中文名'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'ename',
+                    text: '英文名'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'male',
+					renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if(value==1){
+                            return '男';
+                        }else{
+                            return '女';
+                        }
+                    },
+                    text: '性别'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'administrator',
+					renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if(value==1){
+                            return '是';
+                        }else{
+                            return '否';
+                        }
+                    },
+                    text: '是否管理员'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'mobile',
+                    text: '手机号'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'email',
+                    text: '邮箱'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'enabled',
+					renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if(value==1){
+                            return '是';
+                        }else{
+                            return '否';
+                        }
+                    },
+                    text: '是否可用'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'birthday',
+                    text: '出生日期'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'address',
+                    text: '地址'
                 },
                 {
                     xtype: 'numbercolumn',

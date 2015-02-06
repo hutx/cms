@@ -1,12 +1,10 @@
-package com.cms.system.bean;
+package com.cms.system.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.cms.system.util.SqlUtil;
 
 /**
  * 菜单类1.1

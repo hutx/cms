@@ -3,15 +3,21 @@ package com.cms.system.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cms.system.form.OperBean;
 import com.cms.system.service.OperSrv;
 import com.cms.system.util.BusiException;
 import com.cms.system.util.JsonResult;
+import com.cms.system.util.Pager;
 
 @Controller
 @RequestMapping("/operCtl")
@@ -32,12 +38,20 @@ public class OperCtl {
 	 * hutianxin 2015年1月29日 下午3:00:40
 	 */
 	@RequestMapping(value = "/findOperWhereByInfo")
-	public @ResponseBody JsonResult findOperWhereByInfo(@RequestParam Map<String, Object> map) throws BusiException {
+	public @ResponseBody Pager findOperWhereByInfo(OperBean operBean ,@RequestParam int page ,Model model, RedirectAttributes redirectAttrs) throws BusiException {
 		JsonResult result =new JsonResult();
 		result.setResult(0);
-		List<Map<String, Object>> operList = operSrv.findOperWhereByInfoPage(map);
-		result.set("root", operList);
-		return result;
+		//OperBean operBean =new OperBean();
+		Pager pager=null;
+		try {
+			pager = operSrv.findOperWhereByInfoPage(operBean,page);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//result.setRoot(pager.getPageElements());
+		//result.set("totalrows", pager.getTotalRows());
+		return pager;
 	}
 	
 	/**

@@ -33,8 +33,13 @@
 		</mvc:message-converters>   
 	</mvc:annotation-driven> 
 	
-    <!-- 支持异步方法执行 -->
-    <task:annotation-driven /> 
+    <!-- 支持异步方法执行 
+    <task:annotation-driven /> -->
+     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+    <beans:bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <beans:property name="favorPathExtension" value="false" />
+        <beans:property name="favorParameter" value="false" />
+    </beans:bean>
     
     <!-- 对静态资源文件的访问 -->
     <mvc:resources mapping="/resources/**" location="/resources/"  />

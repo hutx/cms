@@ -19,7 +19,9 @@ Ext.define('Oper.store.OperJsonStore', {
     requires: [
         'Ext.data.proxy.Ajax',
         'Ext.data.reader.Json',
-        'Ext.data.field.Field'
+        'Ext.data.field.String',
+        'Ext.data.field.Integer',
+        'Ext.data.field.Date'
     ],
 
     constructor: function(cfg) {
@@ -27,16 +29,64 @@ Ext.define('Oper.store.OperJsonStore', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             storeId: 'OperJsonStore',
+            autoLoad: true,
             proxy: {
                 type: 'ajax',
-                url: '/Oper/findbyWeher',
+                url: '/operCtl/findOperWhereByInfo',
                 reader: {
-                    type: 'json'
+                    type: 'json',
+					rootProperty:'dataRoot',
+					totalProperty:'totalRows'
                 }
             },
             fields: [
                 {
-                    name: 'name'
+                    type: 'string',
+                    name: 'username'
+                },
+                {
+                    type: 'string',
+                    name: 'cname'
+                },
+                {
+                    type: 'string',
+                    name: 'ename'
+                },
+                {
+                    type: 'int',
+                    name: 'male'
+                },
+                {
+                    type: 'int',
+                    name: 'administrator'
+                },
+                {
+                    type: 'string',
+                    name: 'mobile'
+                },
+                {
+                    type: 'string',
+                    name: 'email'
+                },
+                {
+                    type: 'int',
+                    name: 'enabled'
+                },
+                {
+                    type: 'date',
+                    name: 'birthday'
+                },
+                {
+                    name: 'address'
+                },
+                {
+                    name: 'create_date'
+                },
+                {
+                    name: 'salt'
+                },
+                {
+                    name: 'company_id'
                 }
             ]
         }, cfg)]);

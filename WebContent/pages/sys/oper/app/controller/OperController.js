@@ -18,13 +18,17 @@ Ext.define('Oper.controller.OperController', {
 
     refs: {
         operWindow: 'operwindow',
-        operDataGrid: 'opercontainer gridpanel',
+        operDataGrid: 'operContainer gridpanel',
+		operQueryForm: 'operContainer form',
         operWinFormPanel: 'operwindow form'
     },
 
     control: {
         "opercontroller gridpanel": {
             select: 'onOperGridpanelSelect'
+        },
+		"operContainer form button[text='查询']": {
+            click: 'onOperQueryFormButtonClick'
         },
         "operContainer gridpanel button[text='添加']": {
             click: 'onOperAddButtonClick'
@@ -40,7 +44,17 @@ Ext.define('Oper.controller.OperController', {
     onOperGridpanelSelect: function(rowmodel, record, index, eOpts) {
         this.getViewModel().set('record',record);
     },
-
+	onOperQueryFormButtonClick: function(button, e, eOpts) {
+		  var form= button.up('form') ,grid = this.getOperDataGrid();
+		  var username = form.getForm().findField('q_name').getValue();
+		  var store = grid.getStore();
+		  var new_params = {username:username};
+		  
+		  store.load({
+			params:Ext.apply(store.proxy.extraParams,new_params)  
+		  })
+		  
+    },
     onOperAddButtonClick: function(button, e, eOpts) {
         var win = this.getOperWindow();
         if(!win){

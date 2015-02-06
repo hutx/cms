@@ -1,4 +1,4 @@
-package com.cms.system.bean;
+package com.cms.system.util;
 
 import java.io.Serializable;
 import java.util.List;

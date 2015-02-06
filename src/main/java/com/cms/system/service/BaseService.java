@@ -1,5 +1,8 @@
 package com.cms.system.service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -152,23 +155,33 @@ public class BaseService {
 		return message;
 	}
 	
-	public Map<String, Object> getTable(Map<String, Object> map,String operType) throws BusiException {
-		Map<String, Object> table= new HashMap<String, Object>();
-		List<String> col =new ArrayList<String>();
-		List<Object> parame =new ArrayList<Object>(); 
-		Iterator iterator =map.entrySet().iterator();
-		while (iterator.hasNext()) {
-			Map.Entry entry = (Map.Entry)iterator.next();          
-		    String column=entry.getKey().toString(); 
-		    if ("update".endsWith(operType)) {
-		    	col.add("set "+column.toLowerCase()+" = ?");
-			}else{
-				col.add(column.toLowerCase()+" = ?");
+	public String  getSelectWhereSql(String sql ,Object object) throws BusiException {
+		Class c = object.getClass();
+		Method[] methods = c.getMethods();
+		Field[] fields =c.getFields();
+		List<String> columnList = new ArrayList<String>();
+		List<Object> vList = new ArrayList<Object>();
+		for (Method method : methods) {
+			String mName = method.getName();
+			if (mName.startsWith("get")&& !mName.startsWith("getClass")) {
+				Object value;
+				try {
+					value = method.invoke(object, null);
+					if (value!=null) {
+						//if (value instanceof String) {
+							//if (!value.equals("")) {
+								String fieldName = mName.substring(3, mName.length());
+								columnList.add(fieldName.toUpperCase());
+								vList.add(value);
+							//}
+						//}
+					}
+				} catch (Exception e) {
+					logger.warn("反射机制取"+c.getName()+"---->"+mName+"方法值时出错", e);
+					e.printStackTrace();
+				} 				
 			}
-			parame.add(entry.getValue());
 		}
-		table.put("column", col);
-		table.put("parame", parame);
-		return table;
+		return sql;
 	}
 }

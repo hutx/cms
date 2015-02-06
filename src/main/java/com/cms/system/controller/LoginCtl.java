@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cms.system.bean.Tree;
-import com.cms.system.bean.TreeMenu;
 import com.cms.system.service.FuncSrv;
 import com.cms.system.service.LoginSrv;
 import com.cms.system.util.JsonResult;
 import com.cms.system.util.SqlUtil;
+import com.cms.system.util.Tree;
+import com.cms.system.util.TreeMenu;
 import com.cms.system.util.UserContext;
 
 @Controller
